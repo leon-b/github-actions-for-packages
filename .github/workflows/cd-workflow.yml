@@ -2,10 +2,8 @@
 
 name: Node CI
 
-on:
-  push:
-    paths:
-      - "**Dockerfile**"
+on: push
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -45,7 +43,7 @@ jobs:
         env:
           CI: true
 
-  Build-and-Push-Docker-Image:
+  build-and-Push-Docker-Image:
     runs-on: ubuntu-latest
     needs: test
     name: Docker Build, Tag, Push
@@ -59,7 +57,7 @@ jobs:
         name: webpack artifacts
         path: public
     - name: Build container image
-      uses: docker/build-push-action@v1
+      uses: docker/build-push-action@v2
       with:
         username: ${{github.actor}}
         password: ${{secrets.GITHUB_TOKEN}}
